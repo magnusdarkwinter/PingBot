@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>PingBot v0.1</title>
+        <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="~/Content/style.css">
+    </head>
+
+    <body>
+        <div class="wrapper theme-4-active pimary-color-blue">
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="row">
+
+                            @RenderBody()
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
+        <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/Scripts/init.js"></script>
+        <script>setTimeout('window.location.reload();', 10000);</script>
+    </body>
+</html>
