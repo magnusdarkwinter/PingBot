@@ -5,7 +5,6 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading;
 
-
 namespace PingBot.Helpers
 {
     public class NetTools
@@ -27,7 +26,7 @@ namespace PingBot.Helpers
             return false;
         }
 
-        public void SendMail(string body = "test")
+        public void SendMail(string body, string subject)
         {
             SmtpClient client = new SmtpClient();
             client.Port = 587;
@@ -38,7 +37,7 @@ namespace PingBot.Helpers
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("magnusdarkwinter@gmail.com", "rocawear6");
 
-            MailMessage mail = new MailMessage("magnusdarkwinter@gmail.com", "travus@data-serv.com", "PingBot: Test", body);
+            MailMessage mail = new MailMessage("magnusdarkwinter@gmail.com", "travus@data-serv.com", subject, body);
             mail.BodyEncoding = UTF8Encoding.UTF8;
             mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
             
