@@ -12,7 +12,7 @@
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <div class="row" style="padding-top: 20px;">
-                        <div class="row">
+                        <div id="clientView" class="row">
 
                             @RenderBody()
 
@@ -23,8 +23,11 @@
         </div>
 
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
-        <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="~/Scripts/init.js"></script>
-        <script>setTimeout('window.location.reload();', 10000);</script>
+        <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/cron.js"></script>
+        @RenderSection("scripts", required: false);
     </body>
 </html>

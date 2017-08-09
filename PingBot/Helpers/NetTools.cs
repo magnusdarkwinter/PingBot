@@ -11,23 +11,26 @@ namespace PingBot.Helpers
     {
         public bool IsUp(string ipaddress)
         {
+            // Settings and creating objects we will need
             int timeout = 6000;
             string data = "pingbotpingbotpingbotpingbotping";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
-
             Ping pingSender = new Ping();
             PingOptions options = new PingOptions(64, true);
             
+            // Perform Ping
             PingReply reply = pingSender.Send(ipaddress, timeout, buffer, options);
 
+            // Check status and return true or false if ping is successful or not
             if (reply.Status == IPStatus.Success)
                 return true;
        
             return false;
         }
 
-        public void SendMail(string body, string subject)
+        public void SendMail(string subject, string body)
         {
+            // Create smtp object and change smtp settings
             SmtpClient client = new SmtpClient();
             client.Port = 587;
             client.Host = "smtp.gmail.com";
@@ -37,65 +40,13 @@ namespace PingBot.Helpers
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("magnusdarkwinter@gmail.com", "rocawear6");
 
+            // Create mail object and change mail settings
             MailMessage mail = new MailMessage("magnusdarkwinter@gmail.com", "travus@data-serv.com", subject, body);
             mail.BodyEncoding = UTF8Encoding.UTF8;
             mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
             
+            // Send mail
             client.Send(mail);
-        }
-
-
-
-
-
-
-        public void PingTaskAsync(string ipaddress)
-        {
-            int timeout = 6000; // 6 seconds
-            string data = "pingbotpingbotpingbotpingbotping";
-            byte[] buffer = Encoding.ASCII.GetBytes(data);
-            AutoResetEvent waiter = new AutoResetEvent(false);
-            PingOptions options = new PingOptions(64, true);
-
-            Ping pingSender = new Ping();
-            pingSender.PingCompleted += new PingCompletedEventHandler(PingCompletedCallback);
-
-            pingSender.SendAsync(ipaddress, timeout, buffer, options, waiter);
-            waiter.WaitOne();
-        }
-
-        public void PingCompletedCallback(object sender, PingCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                ((AutoResetEvent)e.UserState).Set();
-            }
-            else if (e.Error != null)
-            {
-                ((AutoResetEvent)e.UserState).Set();
-            }
-            else
-            {
-                PingReply reply = e.Reply;
-                DisplayReply(reply);
-                ((AutoResetEvent)e.UserState).Set();
-            }
-        }
-
-        public void DisplayReply(PingReply reply)
-        {
-            if (reply == null)
-                return;
-
-            Console.WriteLine("ping status: {0}", reply.Status);
-            if (reply.Status == IPStatus.Success)
-            {
-                Console.WriteLine("Address: {0}", reply.Address.ToString());
-                Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
-                Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
-                Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
-                Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
-            }
         }
     }
 }
