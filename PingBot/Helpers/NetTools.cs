@@ -30,10 +30,10 @@ namespace PingBot.Helpers
 
         public void SendMail(string subject, string body)
         {
-            string host = "smtp12.mycloudmailbox.com";
-            string from = "dsalert@data-serv.com";
-            string auth = "Ds$support";
-            string to = "dssupport@data-serv.com";
+            string host = "";
+            string from = "";
+            string auth = "";
+            string to = "";
             int port = 587;
 
             // Create smtp object and change smtp settings
