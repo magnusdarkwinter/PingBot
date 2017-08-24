@@ -12,7 +12,8 @@ namespace PingBot.Helpers
 {
     public class Cron
     {
-        private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(10);
+        // Setup amount of time before running ping again.
+        private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(5);
         private readonly Timer _timer;
 
         private IHubConnectionContext<dynamic> Clients { get; set; }
@@ -57,13 +58,13 @@ namespace PingBot.Helpers
                         {
                             string subject = string.Format("PingBot says {0} is down", client.Name);
                             string body = string.Format("PingBot says {0} {1} {2} is now down", client.Name, client.Provider, client.IpAddress);
-                            nt.SendMail(body, subject);
+                            nt.SendMail(subject, body);
                         }
                         else
                         {
                             string subject = string.Format("PingBot says {0} is up", client.Name);
                             string body = string.Format("PingBot says {0} {1} {2} is now up", client.Name, client.Provider, client.IpAddress);
-                            nt.SendMail(body, subject);
+                            nt.SendMail(subject, body);
                         }
 
                         client.IsUp = result;

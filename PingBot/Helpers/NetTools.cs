@@ -30,18 +30,24 @@ namespace PingBot.Helpers
 
         public void SendMail(string subject, string body)
         {
+            string host = "smtp12.mycloudmailbox.com";
+            string from = "dsalert@data-serv.com";
+            string auth = "Ds$support";
+            string to = "dssupport@data-serv.com";
+            int port = 587;
+
             // Create smtp object and change smtp settings
             SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
+            client.Port = port;
+            client.Host = host;
             client.EnableSsl = true;
             client.Timeout = 10000;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("magnusdarkwinter@gmail.com", "rocawear6");
+            client.Credentials = new System.Net.NetworkCredential(from, auth);
 
             // Create mail object and change mail settings
-            MailMessage mail = new MailMessage("magnusdarkwinter@gmail.com", "travus@data-serv.com", subject, body);
+            MailMessage mail = new MailMessage(from, to, subject, body);
             mail.BodyEncoding = UTF8Encoding.UTF8;
             mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
             

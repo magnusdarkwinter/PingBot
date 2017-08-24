@@ -14,5 +14,30 @@ namespace PingBot.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            using (PingBotEntities1 context = new PingBotEntities1())
+            {
+                string username = form.Get("username");
+                string password = form.Get("password");
+
+                var checkUsername = context.Admins.Where(u => u.Username == username).FirstOrDefault();
+
+                if (checkUsername != null)
+                {
+                    var knownPassword = checkUsername.Password;
+                    var checkPassword = Security.CreateMD5(password);
+                    if(checkPassword.ToLower() == knownPassword.ToLower())
+                    {
+                        return View("../Bot/Index");
+                    }
+                }
+            }
+
+            return View();
+        }
+
     }
 }

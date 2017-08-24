@@ -168,13 +168,33 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Cron.cs" />
     <Compile Include="Helpers\NetTools.cs" />
+    <Compile Include="Helpers\Security.cs" />
     <Compile Include="Hubs\PingHub.cs" />
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Client.cs">
       <DependentUpon>ClientModel.tt</DependentUpon>
     </Compile>
@@ -198,12 +218,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\PingBot.sql" />
+    <Content Include="Content\Images\pingbot-icon.png" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Models\AdminModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AdminModel.edmx</DependentUpon>
+      <LastGenOutput>AdminModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\AdminModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AdminModel.edmx</DependentUpon>
+      <LastGenOutput>AdminModel.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ClientModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -215,10 +246,13 @@
       <DependentUpon>ClientModel.edmx</DependentUpon>
       <LastGenOutput>ClientModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\cron.js" />
     <Content Include="Scripts\init.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.js" />
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -229,9 +263,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
@@ -272,6 +307,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bot.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bot\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\AdminModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AdminModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\AdminModel.edmx.diagram">
+      <DependentUpon>AdminModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
